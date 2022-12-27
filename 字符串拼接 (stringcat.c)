@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+char *s1=0,*s2=0,*s3=0;;
+void mystrcat(char *s1,char *s3){
+	int k=0,b=0;
+    while(*(s1+k) != '\0')
+    {
+        k++;
+    }
+    while(*(s3+b)!='\0'){
+    	*(s1+b+k)=*(s3+b);
+    	b++;
+	}
+	*(s1+b+k)='\0';
+}
+int main(){
+	int n=0,x=-1,t=0,m=0,q=0,k=0,j=0;
+	scanf("%d\n",&n);
+	for(int p=0;p<n;p++){
+	s1 = (char *)malloc(100005*sizeof(char));
+	s2 = (char *)malloc(100005*sizeof(char));
+	s3 = (char *)malloc(100005*sizeof(char));
+	scanf("%s %s",s1,s2);
+		for(int i=0;*(s1+i)!='\0';i++){
+			if(*(s1+i)==*(s2+0)){
+				t=i;
+				m=1;
+				break;
+			}else{
+				m=0;
+			}
+		}
+		for(j=0;*(s2+j)!='\0';j++){
+			if(*(s2+j)!=*(s1+j+t)){
+				x=j;
+				break;
+			}
+		}
+		if((m==1&&t==0&&x<0)||(m==1&&*(s2+j)=='\0')){
+			for(int o=0;*(s1+o)!='\0';o++){
+				printf("%c",*(s1+o));
+			}
+			printf("\n");
+		}else{
+		for(k=0;*(s2+k)!='\0';k++){
+			     *(s3+k)=*(s2+k+x);
+			}
+			*(s3+k)='\0';
+		mystrcat(s1,s3);
+		for(int o=0;*(s1+o)!='\0';o++){
+				printf("%c",*(s1+o));
+			}
+			printf("\n");
+		}
+		free(s1);
+		free(s2);
+		free(s3);
+	}
+	return 0;
+}
