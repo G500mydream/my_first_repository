@@ -1,0 +1,64 @@
+#include <stdio.h>
+int n,m,x,y;
+int vector[4][2]={{0,1},{0,-1},{1,0},{-1,0}};
+char a[50][50];
+char b[52][52];
+int main()
+{
+	int cnt=1;
+	int new_i;
+	int new_j;
+	scanf("%d %d %d %d",&n,&m,&x,&y);
+	int vis[52][52]={0};
+	int ans=0;
+	for(int row=0;row<n;row++)
+	{
+		for(int col=0;col<m;col++)
+		{
+			scanf(" %c",&a[row][col]);
+		}
+	}
+	for(int row=0;row<n;row++)
+	{
+		for(int col=0;col<m;col++)
+		{
+			if(a[row][col]=='#') ans++;
+		}
+	}
+	printf("%d\n",ans);
+	for(int row=0;row<n+2;row++)
+	{
+		for(int col=0;col<m+2;col++)
+		{
+			if(row==0||row==n+1||col==0||col==m+1)
+			{
+				b[row][col]='_';
+			}else
+			{
+				b[row][col]=a[row-1][col-1];
+			}
+		}
+	}
+	printf("%d %d\n",x,y);
+	for(int row=x;cnt!=0&&row<n+1;)
+	{
+		for(int col=y;cnt!=0&&col<m+1;)
+		{
+			cnt=0;
+			for(int k=0;k<4;k++)
+			{
+				new_i=row+vector[k][0];
+				new_j=col+vector[k][1];
+				if(b[new_i][new_j]=='#'&&vis[new_i][new_j]!=1)
+				{
+					vis[row][col]=1;
+					row=new_i;
+					col=new_j;
+					printf("%d %d\n",row,col);
+					cnt++;
+				}
+			}
+		}
+	}
+	return 0;
+}
