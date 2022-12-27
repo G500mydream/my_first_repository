@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main()
+{
+	
+	int n;
+	scanf("%d",&n);
+	char m[n];
+	getchar();
+	gets(m);
+	int k;
+	scanf("%d",&k);
+	
+	for(int j=k-1;j>=0;j--)
+	{
+		printf("%c",m[j]);
+	}
+	for(int p=n-1;p>=k;p--)
+	{
+		printf("%c",m[p]);
+	}
+	
+	return 0;
+	
+}
