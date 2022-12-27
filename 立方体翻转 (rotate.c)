@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <string.h>
+int a,b,c;
+char input[1005];
+void rotate(int i,int a,int b,int c);
+int arr[4][2];
+
+int main(void)
+{
+	
+	scanf("%d%d%d",&a,&b,&c);
+	arr[0][0]=0;
+	arr[0][1]=0;
+	arr[1][0]=0;
+	arr[1][1]=b;
+	arr[2][0]=a;
+	arr[2][1]=0;
+	arr[3][0]=a;
+	arr[3][1]=b;
+	scanf("%s",input);
+	
+	
+	rotate(0,a,b,c);
+	
+
+	printf("%d %d %d %d",arr[0][0],arr[3][0],arr[0][1],arr[3][1]);
+	
+}
+
+void rotate(int i,int a,int b,int c)
+{
+	int tmp=0;
+	if(i==strlen(input)) 
+	{
+		return ;
+	}
+	else
+	{
+		if(input[i]=='W') 
+		{
+			arr[0][0]=arr[0][0]-c;
+			arr[1][0]=arr[1][0]-c;
+			arr[2][0]=arr[2][0]-a;
+			arr[3][0]=arr[3][0]-a;
+			tmp=c;
+			c=a;
+			a=tmp;
+		}
+		else if(input[i]=='S')
+		{
+			arr[0][0]+=a;
+			arr[1][0]+=a;
+			arr[2][0]+=c;
+			arr[3][0]+=c;
+			tmp=c;
+			c=a;
+			a=tmp;
+		}
+		else if(input[i]=='A')
+		{
+			arr[0][1]-=c;
+			arr[1][1]-=b;
+			arr[2][1]-=c;
+			arr[3][1]-=b;
+			tmp=b;
+			b=c;
+			c=tmp;
+		}
+		else if(input[i]=='D')
+		{
+			arr[0][1]+=b;
+			arr[1][1]+=c;
+			arr[2][1]+=b;
+			arr[3][1]+=c;
+			tmp=b;
+			b=c;
+			c=tmp;
+		}
+		rotate(i+1,a,b,c);
+	 } 
+}
