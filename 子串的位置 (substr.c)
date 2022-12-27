@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+char *a;
+char *b;
+int i;
+void find(char *str,char *substr);
+
+int main(void)
+{
+	a=(char *)malloc(100000*sizeof(char));
+	b=(char *)malloc(100000*sizeof(char));
+	gets(a);
+	gets(b);
+	for(i=0;i<strlen(a);i++)
+	{
+		find(a,b);
+	}
+}
+void find(char *str,char *substr)
+{
+	char *tmpstr=str+i;
+	char *tmpsubstr=substr;
+	while(*tmpstr!='\0')
+	{
+		if(*tmpstr!=*tmpsubstr)
+		{
+			return;
+		}
+		while(*tmpsubstr!='\0')
+		{
+			if(*tmpstr!=*tmpsubstr)
+			{
+				return;
+			}
+			tmpstr=tmpstr+1;
+			tmpsubstr=tmpsubstr+1;
+		}
+		if(*tmpsubstr=='\0')
+		{
+			printf("%d ",i);
+			return;
+		}
+	}
+	free(tmpstr);
+	free(tmpsubstr);
+	return;
+}
