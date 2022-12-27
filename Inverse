@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+
+int main()
+{
+	
+	char num[4];
+	char a[4];
+	
+	scanf("%c%c%c%c%c",&num[0],&num[1],&num[2],&num[3],&num[4]);
+	
+	a[0]=num[2];
+	a[1]=num[1];
+	a[2]=num[0];
+	a[3]=num[4];
+	a[4]=num[3];
+	
+	
+	printf("%c%c%c%c%c",a[0],a[1],a[2],a[3],a[4]);
+	
+	return 0;
+}
