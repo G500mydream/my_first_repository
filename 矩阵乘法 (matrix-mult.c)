@@ -1,0 +1,45 @@
+#include<stdio.h>
+int m,n,p;
+int main()
+{
+	scanf("%d %d %d",&m,&n,&p);
+	int a[m][n];
+	int b[n][p];
+	int c[m][p];
+	for(int row=0;row<m;row++)
+	{
+		for(int col=0;col<n;col++)
+		{
+			scanf("%d",&a[row][col]);
+			getchar();
+		}
+	}
+	for(int row=0;row<n;row++)
+	{
+		for(int col=0;col<p;col++)
+		{
+			scanf("%d",&b[row][col]);
+			getchar();
+		}
+	}
+	for(int row=0;row<m;row++)
+	{
+		for(int col=0;col<p;col++)
+		{
+			c[row][col]=0;
+			for(int k=0;k<n;k++)
+			{
+				c[row][col]+=a[row][k]*b[k][col];
+			}
+		}
+	}
+	for(int row=0;row<m;row++)
+	{
+		for(int col=0;col<p;col++)
+		{
+			printf("%d ",c[row][col]);
+		}
+		printf("\n");
+	}
+	return 0;
+}
