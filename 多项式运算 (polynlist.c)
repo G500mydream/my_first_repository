@@ -1,0 +1,127 @@
+//在这个程序中，表示多项式的结合体中只有一个数组用于存储多项式各个次数项的系数
+//事实上，跨越次数隔项输出的问题在print函数里面已经得到了解决
+//而此时我们需要做的就是如何进行多项式系数的乘法运算
+#include "string.h"
+#include "stdlib.h"
+#include "stdbool.h"
+#include "stdio.h"
+
+int p1,p2;
+char id[20];
+int max(int a,int b)
+{
+    if(a>b)
+        return a;
+    else
+        return b;
+}
+struct poly{
+    int arr[20005];
+    int len;
+};
+struct poly out;
+
+struct poly addsolve(struct poly a,struct poly b)
+{
+    struct poly ret;
+    ret.len= max(a.len,b.len);
+    for (int i = 0; i <= ret.len; ++i) {
+        ret.arr[i]=a.arr[i]+b.arr[i];
+    }
+    return ret;
+}
+struct poly subsolve(struct poly a,struct poly b)
+{
+    struct poly ret;
+    if(a.len==b.len)
+    {
+        for (int i = a.len-1; i >=0 ; i++) {
+            if(a.arr[i]>b.arr[i])
+                ret.len=i;
+            else if(a.arr[i]<b.arr[i])
+                ret.len=i;
+            else
+                continue;
+        }
+    } else
+        ret.len= max(a.len,b.len);
+    for (int i = 0; i <= max(p1,p2); ++i) {
+        ret.arr[i]=a.arr[i]-b.arr[i];
+    }
+    return ret;
+}
+struct poly mulsolve(struct poly a,struct poly b)
+{
+    struct poly ret;
+    ret.len=p1+p2+1;
+    memset(ret.arr,0,20005*sizeof(int));
+    for (int i = 0; i <= p1+p2; i++) {
+        for (int j = 0; j <= i ; j++) {
+            ret.arr[i]=ret.arr[i]+a.arr[j]*b.arr[i-j];
+        }
+    }
+    return ret;
+}
+
+void print(struct poly out)//由于我的疏忽，我目前写的这一个print函数只能用于打印加法或者减法情况下的值，所以要想利用它打印出乘法的规则，必须给每一个多项式添加一个表示长度的值
+{
+    if(out.arr[out.len-1]==1)
+        printf("%s^%d",id, out.len-1);
+    else if(out.arr[out.len-1]==-1)
+        printf("-%s^%d",id, out.len-1);
+    else
+        printf("%d%s^%d",out.arr[out.len-1],id, out.len-1);
+    for (int i = out.len-2 ; i >1 ; i--) {
+        if(out.arr[i]==1)
+            printf("+%s^%d",id,i);
+        else if(out.arr[i]==0)
+            continue;
+        else if(out.arr[i]==-1)
+            printf("-%s^%d",id,i);
+        else if(out.arr[i]>0)
+            printf("+%d%s^%d",out.arr[i],id,i);
+        else if(out.arr[i]<0)
+            printf("%d%s^%d",out.arr[i],id,i);
+    }
+    if(out.arr[1]!=1&&out.arr[1]!=-1)
+    {
+        if(out.arr[1]>0)
+            printf("+%d%s",out.arr[1],id);
+        else if(out.arr[1]<0)
+            printf("%d%s",out.arr[1],id);
+    } else if(out.arr[1]==1)
+    {
+        printf("+%s",id);
+    } else if(out.arr[1]==-1)
+        printf("-%s",id);
+    if(out.arr[0]>0)
+        printf("+%d",out.arr[0]);
+    else if(out.arr[0]<0)
+        printf("%d",out.arr[0]);
+}
+//好像写了一个清除函数效率并不高
+int main(void)
+{
+    struct poly a;
+    struct poly b;
+    memset(a.arr,0,10005*sizeof (int ));
+    memset(b.arr,0,10005*sizeof (int ));
+    scanf("%d%d",&p1,&p2);//输入两个多项式的阶
+    a.len=p1+1;
+    b.len=p2+1;
+    scanf("%s",id);
+    for (int i = p1; i >= 0; i--) {
+        scanf("%d",&a.arr[i]);
+    }
+    for (int i = p2; i >= 0 ; i--) {
+        scanf("%d",&b.arr[i]);
+    }
+    out= addsolve(a,b);
+    print(out);
+    printf("\n");
+    out= subsolve(a,b);
+    print(out);
+    printf("\n");
+    out= mulsolve(a,b);
+    print(out);
+}
