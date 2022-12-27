@@ -1,0 +1,86 @@
+#include<stdio.h>
+#define N 9
+int a[N][N];
+int cnt[N]={0};
+
+int main()
+{
+	for(int row=0;row<N;row++)
+	{
+		for(int col=0;col<N;col++)
+		{
+			scanf("%d",&a[row][col]);
+		}
+	}
+	
+	for(int row=0;row<N;row++)
+	{
+		for(int col=0;col<N;col++)
+		{
+			if(a[row][col]>9||a[row][col]<1) 
+			{
+				printf("NO");
+				return 0;
+			}
+		}
+	}
+	
+	for(int row=0;row<N;row++)
+	{
+		for(int col=0;col<N-1;col++)
+		{
+			for(int i=col+1;i<N;i++)
+			{
+				if(a[row][col]==a[row][i])
+				{
+					printf("NO");
+					return 0;
+				}
+				else continue;
+			}
+		}
+	}
+	
+	for(int col=0;col<N;col++)
+	{
+		for(int row=0;row<N-1;row++)
+		{
+			for(int i=row+1;i<N;i++)
+			{
+				if(a[row][col]==a[i][col])
+				{
+					printf("NO");
+					return 0;
+				}
+			}
+		}
+	}
+	
+	for(int m=0;m<3;m++)
+	{
+		for(int n=0;n<3;n++)
+		{
+			for(int row=0;row<3;row++)
+			{
+				for(int col=0;col<3;col++)
+				{
+					for(int i=1;i<=9;i++)
+					{
+						if(a[m*3+row][n*3+col]==i) cnt[i-1]++;
+					}
+				}
+			}
+			for(int i=1;i<=9;i++)
+			{
+				if(cnt[i-1]!=1)
+				{
+					printf("NO");
+					return 0;
+				}else cnt[i-1]=0;
+			}
+		}
+	}
+	
+	printf("YES");
+	return 0;
+}
