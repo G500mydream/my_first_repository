@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+	
+	double p,q;
+	double x1;
+	double a,b;
+	double c,d;
+	double e,f;
+	
+	scanf("%lf %lf",&p,&q);
+	
+	e = pow(q/2*1.0,2.0)+pow(p/3*1.0,3.0);
+	f = -q/2*1.0;
+	c = sqrt(e);
+
+	a = cbrt(f+c);
+	b = cbrt(f-c);
+	
+	x1 = a + b;
+	
+
+	printf("%.3lf",x1);
+	
+	return 0;
+}
