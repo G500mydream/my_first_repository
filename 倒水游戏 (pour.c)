@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+int k,v1,v2,v3,a,b,c,a0,b0,c0;
+int cnt=0;
+
+void move(int a,int b,int c,int k)
+{
+	int d,e;
+	
+	if(a==a0&&b==b0&&c==c0)
+	{
+		cnt=1;
+		return;
+	}
+	if(k<=0)
+		return;
+	if(a!=0)
+	{
+		if(a+b>v2)
+		{
+			d=v2;
+		}
+		else d=a+b;
+		
+		if(a+c>v3)
+		{
+			e=v3;
+		}
+		else e=a+c;
+		
+		move(0,d,c,k-1);
+		move(0,b,e,k-1);
+	}
+	if(b!=0)
+	{
+		if(a+b>v1)
+		{
+			d=v1;
+		}
+		else d=a+b;
+		
+		if(b+c>v3)
+		{
+			e=v3;
+		}
+		else e=b+c;
+		
+		move(d,0,c,k-1);
+		move(a,0,e,k-1);
+	}
+	if(c!=0)
+	{
+		if(a+c>v1)
+		{
+			d=v1;
+		}
+		else d=a+c;
+		
+		if(b+c>v2)
+		{
+			e=v2;
+		}
+		else e=b+c;
+		
+		move(d,b,0,k-1);
+		move(a,e,0,k-1);
+	}
+}
+
+int main(void)
+{
+	scanf("%d%d%d%d%d%d%d%d%d%d",&k,&v1,&v2,&v3,&a,&b,&c,&a0,&b0,&c0);
+	
+	move(a,b,c,k);
+	
+	if(cnt!=0)
+	{
+		printf("Yes");
+	}
+	else 
+	{
+		printf("No");
+	}
+	
+}
