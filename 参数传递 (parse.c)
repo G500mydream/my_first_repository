@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+char *para;
+char *cmd;
+char *output;
+char *name;
+char error;
+bool judge=true;
+bool control=true;
+int len=0;
+
+void solution(char *a)
+{
+	control=true;//renew the value of control
+	if(judge==false)
+	{
+		strcat(output,a);
+		strcat(output,"\n");
+		judge=true;
+		return;
+	}else
+	{
+		if(*a=='-')
+		{
+			if(strchr(para,*(a+1))==NULL)
+			{
+				control=false;//the control is for the unformal running program 1
+				printf("%s: invalid option -- '%c'",name,*(a+1));
+				return;
+			}
+			else
+			{
+				for(int i=0;i<strlen(para);i++)
+				{
+					if(*(para+i)==*(a+1))
+					{
+						if(*(para+i+1)==':')
+						{
+							judge=false;
+							strcat(output,(a+1));
+							strcat(output,"=");
+							error=*(a+1);
+							return;//the judge is for evaluate unformal running program 2
+						}
+						else
+						{
+							strcat(output,(a+1));
+							strcat(output,"\n");
+							return;
+						}
+					}
+				}
+			}
+		}else
+		{
+			return;
+		}
+	}
+}
+
+int main(void)
+{
+	para=(char *)malloc(100000*sizeof(char));
+	output=(char *)malloc(100000*sizeof(char));
+	cmd=(char *)malloc(100000*sizeof(char));
+	name=(char *)malloc(100000*sizeof(char));
+	
+	memset(output,0,sizeof(char));
+
+	scanf("%s",para);
+	scanf("%s",name);
+	strcat(output,name);
+	strcat(output,"\n");
+	
+	while(scanf("%s",cmd)!=EOF)
+	{
+		solution(cmd);
+		if(control==false)
+			break;
+	}
+	if(control==true&&judge==true)
+	{
+		printf("%s",output);
+	}
+	else if(judge==false)
+	{
+		printf("%s: option requires an argument -- '%c'",name,error);
+	}
+}
