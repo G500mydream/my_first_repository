@@ -1,0 +1,43 @@
+#include <stdio.h>
+int main(void)
+{
+	int n;
+	int a[2005];
+	int i;
+	int tmp;
+	int s;
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	//find the number before the arrange
+	for(int j=i-1;j>=0;j--)
+	{
+		if(a[j]<a[j-1]) continue;
+		else
+		{
+			tmp=j-1;
+			break;
+		}
+	}
+	for(int k=i-1;k>=0;k--)
+	{
+		if(a[k]>a[tmp]) 
+		{
+			s=a[k];
+			a[k]=a[tmp];
+			a[tmp]=s;
+			break;
+		}
+	}
+	for(int j=0;j<=tmp;j++)
+	{
+		printf("%d ",a[j]);
+	}
+	for(int j=i-1;j>tmp;j--)
+	{
+		printf("%d ",a[j]);
+	}
+	
+}
