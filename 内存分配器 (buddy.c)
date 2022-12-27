@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <math.h>
+
+int data[100005]={0};
+int iden[100005]={0};
+char command;
+int n,q;
+int len;
+int id,m;
+
+int fitsiz(int m)
+{
+	for(int i=0;;i++)
+	{
+		if((1<<i)>=m)
+		{
+			return i;
+		}
+	}
+}
+void query(void)
+{
+	printf("%d\n",len);
+	for(int i=1;i<=len;i++)
+	{
+		printf("%d ",iden[i]);
+	}
+	printf("\n");
+}
+
+int findfree(int s)
+{
+	for(int i=1;i<=len;i++)
+	{
+		if(data[i]==(1<<s)&&iden[i]==0)
+		{
+			return i;
+		}
+	}
+	for(int i=1;i<=len;i++)
+	{
+		if(data[i]>(1<<s)&&iden[i]==0)
+		{
+			return i;
+		}
+	}
+}
+void allocate(int id,int s)
+{
+	while(1)
+	{
+		int pos=findfree(s);
+		if(data[pos]==(1<<s)){
+			iden[pos]=id;
+			break;
+		}
+		else{
+			for(int i=len;i>pos;i--)
+			{
+				data[i+1]=data[i];
+				iden[i+1]=iden[i];
+			}
+			
+			iden[pos+1]=0;
+			iden[pos]=0;
+			data[pos]=data[pos]/2;
+			data[pos+1]=data[pos];
+			len++;
+		}
+	}
+}
+
+int main(void)
+{
+	scanf("%d%d",&n,&q);
+	data[1]=(1<<n);
+	len=1;
+	for(int i=0;i<q;i++)
+	{
+		scanf(" %c",&command);
+		if(command=='Q')
+		{
+			query();
+		}
+		else if(command=='A')
+		{
+			scanf("%d%d",&id,&m);
+			
+			allocate(id,fitsiz(m));
+		}
+		
+	}
+}
