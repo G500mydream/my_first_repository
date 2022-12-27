@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main()
+{
+	int n,i,j;
+	int sum=0;
+	int mul=1;
+	int mod1;
+	scanf("%d",&n);
+	
+	for(i=1;i<=n;i++)
+	{
+		mul=1;
+		for(j=1;j<=i;j++)
+		{
+			mul*=j;
+			mul=mul%10007;
+		}
+		mod1=mul%10007;
+		sum+=mod1;
+	}
+	sum=sum%10007;
+	printf("%d",sum);
+	return 0;
+}
