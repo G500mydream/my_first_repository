@@ -1,0 +1,57 @@
+#include<stdio.h>
+#include<string.h>
+char a[100005];
+char b[100005];
+char c[30][6];
+int top=0;
+int pop(char *b,char m);
+int main(){
+	int n,p;
+	scanf("%d\n",&n);
+	for(int i=0;i<n;i++){
+		top=0;
+		gets(a);
+		int len=strlen(a);
+		for(int j=0;j<len;j++){
+			p=pop(b,a[j]);
+		}
+		if(p>0){
+			printf("False\n");
+		}else if(p==0){
+			printf("True\n");
+		}
+	}
+	return 0;
+}
+int pop(char *b,char m){
+	if(top==0){
+		if(m!='\0'){
+		top+=1;
+		b[top]=m;
+		}
+	}else if(top>0){
+		if(b[top]=='('){
+		if(m==')'){
+			top--;
+		}else{
+			top++;
+			b[top]=m;
+		}
+	}else if(b[top]=='['){
+		if(m==']'){
+			top--;
+		}else{
+			top++;
+			b[top]=m;
+		}
+	}else if(b[top]==123){
+		if(m==125){
+			top--;
+		}else{
+			top++;
+			b[top]=m;
+		}
+	}
+}
+	return top;
+}
