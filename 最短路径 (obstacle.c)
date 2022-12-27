@@ -1,0 +1,113 @@
+#include<stdio.h>
+#include<math.h>
+int main(){
+	int x1,y1,x2,y2,x3,y3;
+	int t,b,count;
+	scanf("%d %d %d %d %d %d",&x1,&y1,&x2,&y2,&x3,&y3);
+	count = abs(x1-x2)+abs(y1-y2);
+	if(((x1==x3&&x1==x2)&&((y1<y3&&y2>y3)||(y1>y3&&y2<y3)))||((y1==y3&&y1==y2)&&((x1<x3&&x2>x3)||(x1>x3&&x2<x3)))){
+	count = count + 2;
+	}
+	printf("%d\n",count);
+	t=abs(x1-x2);
+	b=abs(y1-y2);
+     if(x2==x3){
+     	if(x1==x2){
+     		if(y1<y3&&y3<y2){
+     			printf("R");
+     			for(int i=1;i<=b;i++){
+     				printf("U");
+				 }
+				 printf("L");
+			 }else if(y1>y3&&y3>y2){
+			 	printf("R");
+     			for(int i=1;i<=b;i++){
+     				printf("D");
+				 }
+				 printf("L");
+			 }else if(y1<y2&&y2<=y3) {
+			 	for(int i=1;i<=b;i++){
+			 		printf("U");
+				 }
+			 }
+			 else if(y1>y2&&y2>=y3){
+			 	for(int i=1;i<=b;i++){
+     				printf("D");
+				 }
+			 }
+		 }else if(x1!=x2){
+		    if(y1<y2){
+       	       for(int i=1;i<=b;i++){
+       		printf("U");
+		   }
+	   }else if(y1>y2){
+	   	
+	   	for(int i=1;i<=b;i++){
+	   		printf("D");
+		   }
+	   }
+	   if(x1<x2){
+	   	for(int i=1;i<=t;i++){
+	   		printf("R");
+		   }
+	   }else if(x1>x2){
+	   	for(int i=1;i<=t;i++){
+	   		printf("L");
+		   }
+	   }
+	  }
+	  }else if((x1==x3&&x1!=x2)||(y3==y2&&y1!=y2)){
+   	 if(x1<x2){
+	   	for(int i=1;i<=t;i++){
+	   		printf("R");
+		   }
+	   }else if(x1>x2) {
+	   	for(int i=1;i<=t;i++){
+	   		printf("L");
+		   }
+	   }
+	    if(y1<y2){
+       	for(int i=1;i<=b;i++){
+       		printf("U");
+		   }
+	   }else if(y1>y2) {
+	   	for(int i=1;i<=b;i++){
+	   		printf("D");
+		   }
+	   }
+   }else{
+   	   if((y1==y2&&y1==y3)&&((x1<x3&&x3<x2)||(x1>x3&&x3>x2))){
+   		printf("U");
+   		if(x1<x2){
+	   	for(int i=1;i<=t;i++){
+	   		printf("R");
+		   }
+	   }else if(x1>x2){
+	   	for(int i=1;i<=t;i++){
+	   		printf("L");
+		   }
+	   }
+   		printf("D");
+	   }else {
+   	 if(y1<y2){
+       	       for(int i=1;i<=b;i++){
+       		printf("U");
+		   }
+	   }else if(y1>y2){
+	   	for(int i=1;i<=b;i++){
+	   		printf("D");
+		   }
+	   }
+	   if(x1<x2){
+	   	for(int i=1;i<=t;i++){
+	   		printf("R");
+		   }
+	   }else if(x1>x2){
+	   	for(int i=1;i<=t;i++){
+	   		printf("L");
+		   }
+	   }
+   }
+ }
+	return 0;
+}
