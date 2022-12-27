@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <math.h>
+int n;
+char a[1025][2049];
+void paint(int n,int x,int y)
+{
+	if(n==1)
+	{
+		a[x][y]='/';
+		a[x][y-1]=' ';
+		a[x][y+1]='\\';
+		a[x][y+2]=' ';
+		a[x+1][y]='_';
+		a[x+1][y+1]='_';
+		a[x+1][y-1]='/';
+		a[x+1][y+2]='\\';
+		return;
+	}
+	paint(n-1,x,y);
+	int start1=y-pow(2,n-1);
+	int start2=y+pow(2,n-1);
+	int renewx=x+pow(2,n-1);
+	paint(n-1,renewx,start1);
+	paint(n-1,renewx,start2);
+}
+int main(void)
+{
+	scanf("%d",&n);
+	int c=pow(2,n);
+	int d=pow(2,n+1);
+	for(int i=0;i<=c;i++)
+	{
+		for(int j=0;j<=d;j++)
+		{
+			a[i][j]=' ';
+		}
+	}
+	paint(n,0,c-1);
+	for(int i=0;i<c;i++)
+	{
+		for(int j=0;j<=d;j++)
+		{
+			printf("%c",a[i][j]);
+		}
+		printf("\n");
+	}
+}
