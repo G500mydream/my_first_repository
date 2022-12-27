@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <math.h>
+int flag(int x)
+{
+	for(int i=2;i<sqrt(x+0.5);i++)
+	{
+		if(x%i==0)
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	int n,b,s,k,cnt=0;
+	int a[10]={0};
+	scanf("%d",&n);
+	for(int i=2;i<=n;i++)
+	{
+		s=0;
+		k=i;
+		for(int j=0;k>0;j++)
+		{
+			a[j]=k%10;
+			k=k/10;
+			s=s*10+a[j];
+		}
+		if(flag(i)==1&&flag(s)==1)
+		{
+			cnt++;
+		}
+	}
+	printf("%d",cnt);
+	return 0;
+}
