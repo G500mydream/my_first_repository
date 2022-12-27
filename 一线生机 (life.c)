@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <string.h>
+int n;
+char a[1001];
+char b[1007];
+int len;
+int cnt2[1006]={0},cnt3[1006]={0};
+int main()
+{
+	scanf("%d",&n);
+	scanf("%s",a);
+	len=strlen(a);
+	memset(b,'.',sizeof(b));
+	for(int i=3;i<len+3;i++)
+	{
+		b[i]=a[i-3];
+	}
+	for(int k=0;k<n;k++)
+	{
+		for(int i=3;i<len+3;i++)
+		{
+		cnt2[i]=0;
+		cnt3[i]=0;
+		for(int j=i-3;j<i;j++)
+		{
+			if(b[j]=='A') cnt2[i]++;
+			if(b[j]=='B') cnt3[i]++;
+		}
+		for(int j=i+1;j<i+4;j++)
+		{
+			if(b[j]=='A') cnt2[i]++;
+			if(b[j]=='B') cnt3[i]++;
+		}
+		}
+		for(int i=3;i<len+3;i++)
+		{
+			if(b[i]=='.')
+			{
+				if(cnt2[i]>=2&&cnt2[i]<=4&&cnt3[i]==0) b[i]='A';
+				if(cnt3[i]>=2&&cnt3[i]<=4&&cnt2[i]==0) b[i]='B';
+			}else if(b[i]=='A')
+			{
+				if(cnt3[i]>0) b[i]='.';
+				else if(cnt2[i]>=5) b[i]='.';
+				else if(cnt2[i]<=1) b[i]='.';
+			}else if(b[i]=='B')
+			{
+				if(cnt2[i]>0) b[i]='.';
+				else if(cnt3[i]>=5) b[i]='.';
+				else if(cnt3[i]<=1) b[i]='.';
+			}
+		}
+	}
+	for(int i=3;i<len+3;i++)
+	{
+		printf("%c",b[i]);
+	}
+	return 0;
+}
