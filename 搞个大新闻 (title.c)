@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+char *a;
+void correct(char *str)
+{
+	if(*str>=97)
+	{
+		*str=(*str)-32;
+	}
+	str++;
+	for(int i=1;i<strlen(a);i++)
+	{
+		if(*str==' ')
+		{
+			if(*(str+1)>=97)
+			{
+				*(str+1)=*(str+1)-32;
+				str++;
+				continue;
+			}
+		}
+		else if(*str<=90&&*(str-1)!=' ')
+		{
+			*str=*str+32;
+			str++;
+			continue;
+		}
+		str++;
+	}
+}
+int main(void)
+{
+	a=(char *)malloc(4096*sizeof(char));
+	gets(a);
+	correct(a);
+	puts(a);
+}
