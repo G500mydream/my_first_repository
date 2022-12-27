@@ -1,0 +1,167 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
+char *input;
+char *output;
+char *front;
+char *behind;
+bool done=false;
+
+void process(char *a)
+{
+	//the first part is for numbers
+	bool forint=false;
+	int cnt=0;
+	for(int i=0;i<strlen(a);i++)
+	{
+		if(*(a+i)=='.')
+		{
+			cnt++;
+			forint=true;
+		}
+		if(*(a+i)>57||*(a+i)<48||*(a+i)=='-')
+			forint=false;
+		else
+			forint=true;
+	}
+	if(cnt==1)
+	{
+		strcat(output,"float ");
+		done=true;
+		return;
+	}
+	else if(cnt>1)
+	{
+		done=false;
+		return;
+	}	
+	else if(forint==true)
+	{
+		strcat(output,"integer ");
+		done=true;
+		return;
+	}
+	
+	//the second part is for operators
+	for(int j=0;j<strlen(a);j++)
+	{
+		if((!strcmp(a,"+"))||(!strcmp(a,"-"))||(!strcmp(a,"*"))||(!strcmp(a,"/"))||(!strcmp(a,"="))||(!strcmp(a,"=="))||(!strcmp(a,"!="))||(!strcmp(a,">="))||(!strcmp(a,"<="))||(!strcmp(a,">"))||(!strcmp(a,"<")))
+		{
+			strcat(output,"operator ");
+			done=true;
+			return;
+		}
+	}
+	
+	//the final part is for variables
+	if(*a<=57&&*a>=48)
+	{
+		for(int k=0;k<strlen(a);k++)
+		{
+			if(*(a+k)>57||*(a+k)<48)
+			{
+				done=false;
+				return;
+			}
+		}
+	}
+	else if(*a==95||(*a<=122&&*a>=97)||(*a<=90||*a>=65))
+	{
+		//the three part is for reserves
+		if((!strcmp(a,"int"))||(!strcmp(a,"char"))||(!strcmp(a,"const"))||(!strcmp(a,"float"))||(!strcmp(a,"double"))||(!strcmp(a,"long"))||(!strcmp(a,"static"))||(!strcmp(a,"void"))||(!strcmp(a,"extern"))||(!strcmp(a,"return"))||(!strcmp(a,"break"))||(!strcmp(a,"exum"))||(!strcmp(a,"struct"))||(!strcmp(a,"typedef"))||(!strcmp(a,"union"))||(!strcmp(a,"goto")))
+		{
+			strcat(output,"reserved ");
+			done=true;
+			return;
+		}	
+		else 
+		{
+			int cnt=0;
+			for(int i=1;i<strlen(a);i++)
+			{
+				if(*(a+i)==95||(*(a+i)<=122&&*(a+i)>=97)||(*(a+i)<=90&&*(a+i)>=65)||(*(a+i)<=57&&*(a+i)>=48))
+					continue;
+				else 
+				{
+					cnt++;
+					break;
+				}
+			}
+			if(cnt!=0)
+			{
+				done=false;
+				return;
+			}else if(strlen(a)!=0)
+			{
+				done=true;
+				strcat(output,"variable ");
+				return;
+			}
+		}
+	}
+}
+
+int main(void)
+{
+	input=(char *)malloc(10000*sizeof(char));
+	front=(char *)malloc(10000*sizeof(char));
+	behind=(char *)malloc(10000*sizeof(char));
+	output=(char *)malloc(10000*sizeof(char));
+	memset(input,0,10000*sizeof(char));
+	memset(output,0,10000*sizeof(char));
+	memset(front,0,10000*sizeof(char));
+	memset(behind,0,10000*sizeof(char));
+	
+	while(scanf("%s",input)!=EOF)
+	{
+		int position=-1;
+		for(int i=0;i<strlen(input);i++)
+		{
+			if(*(input+i)==';')
+			{
+				position=i;
+				break;
+			}
+		}
+		if(position!=-1)
+		{
+			for(int i=0;i<position;i++)
+			{
+				*(front+i)=*(input+i);
+			}
+			for(int i=position+1;i<strlen(input);i++)
+			{
+				if(*(input+i)=='\0')
+					break;
+				*(behind+i-position-1)=*(input+i);
+			}
+			process(front);
+			strcat(output,"\n");
+			process(behind);
+		}
+		else
+		{
+			process(input);
+		}
+		if(done==false)
+		{
+			break;
+		}
+		for(int i=0;i<strlen(output);i++)
+		{
+			*(front+i)=0;
+			*(behind+i)=0;
+		}
+	}
+	if(done)
+	{
+		printf("%s",output);
+	}else
+		printf("Compile Error");
+	free(output);
+	free(input);
+	free(front);
+	free(behind);
+}
