@@ -1,0 +1,40 @@
+#include <stdio.h>
+int n;
+int num[100005];
+int ans[100005][2];
+int findmax(int num[],int l,int r)
+{
+	int max=num[l];
+	int j=l;
+	for(int i=l;i<=r;i++)
+	{
+		if(max<num[i])
+		{
+			max=num[i];
+			j=i;
+		} 
+	}
+	return j;
+}
+void maxintval(int num[],int l,int r,int ans[][2])
+{
+	if(l>r) return;
+	int mid=findmax(num,l,r);
+	ans[mid][0]=l;
+	ans[mid][1]=r;
+	maxintval(num,l,mid-1,ans);
+	maxintval(num,mid+1,r,ans);
+}
+int main(void)
+{
+	scanf("%d",&n);
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d",&num[i]);
+	}
+	maxintval(num,0,n-1,ans);
+	for(int i=0;i<n;i++)
+	{
+		printf("%d %d\n",ans[i][0]+1,ans[i][1]+1);
+	}
+}
