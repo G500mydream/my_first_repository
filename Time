@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main()
+{
+	
+	char month[8];
+	char weekday[8];
+	int hour,minute,second;
+	int day,year;
+	
+	scanf("%s %d %d %s %d %d %d",&month,&day,&year,&weekday,&hour,&minute,&second);
+	
+	printf("%.3s %.3s %02d %02d:%02d:%02d %04d",weekday,month,day,hour,minute,second,year);
+	
+	return 0;
+}
