@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+	
+	int day,month,year,jdn;
+	int a,y,m;
+	
+	
+	scanf("%d %d %d",&year,&month,&day);
+	
+	a = floor((14-month)*1.0/12);	
+	y = year + 4800 - a;	
+	m = month + 12*a - 3;
+	jdn = day+floor((153*m+2)*1.0/5)+365*y+floor(y*1.0/4)-floor(y*1.0/100)+floor(y*1.0/400)-32045;
+	
+	printf("%d",jdn);
+	
+	return 0;
+}
