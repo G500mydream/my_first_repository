@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+	const double x = 0.2;
+	double result1;
+	double result2;
+	double a;
+	
+	
+	result1 = 4.0 * atan( x ) - atan( 1.0/239);
+	result1 *= 4.0;
+	
+	result2 = log( pow(640320.0,3.0) + 744.0);
+	a = sqrt(163.0)*1.0;
+	result2 = result2 / a * 1.0;
+	
+	printf("%.15lf\n%.15lf",result1,result2);
+	
+	return 0;
+}
