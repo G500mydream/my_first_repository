@@ -1,0 +1,120 @@
+
+#include <stdio.h>
+#include "stdlib.h"
+#include "string.h"
+#include "math.h"
+
+int n;
+struct country {
+    char name[100];
+    double attack;
+    double defence;
+    double organization;
+};
+void attacksort(struct country a[],int n)
+{
+    struct country tmp;
+    for(int i=0;i<n-1;i++)
+    {
+        int cnt=0;
+        for(int j=0;j<n-i-1;j++)
+        {
+            if(a[j].attack<a[j+1].attack)
+            {
+                tmp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=tmp;
+                cnt=1;
+            }
+        }
+        if(cnt==0)
+            break;
+    }
+    for (int (i) = 0; (i) < n; (i)++) {
+        printf("%s ",a[i].name);
+    }
+    printf("\n");
+}
+void defencesort(struct country a[],int n)
+{
+    struct country tmp;
+    for(int i=0;i<n-1;i++)
+    {
+        int cnt=0;
+        for(int j=0;j<n-i-1;j++)
+        {
+            if(a[j].defence<a[j+1].defence)
+            {
+                tmp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=tmp;
+                cnt=1;
+            }
+        }
+        if(cnt==0)
+            break;
+    }
+    for (int i = 0; i < n; i++) {
+        printf("%s ",a[i].name);
+    }
+    printf("\n");
+}
+void organizationsort(struct country a[],int n)
+{
+    struct country tmp;
+    for(int i=0;i<n-1;i++)
+    {
+        int cnt=0;
+        for(int j=0;j<n-i-1;j++)
+        {
+            if(a[j].organization<a[j+1].organization)
+            {
+                tmp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=tmp;
+                cnt=1;
+            }
+        }
+        if(cnt==0)
+            break;
+    }
+    for (int (i) = 0; (i) < n; (i)++) {
+        printf("%s ",a[i].name);
+    }
+    printf("\n");
+}
+
+int main() {
+    scanf("%d",&n);
+    struct country a[1005];
+    for(int i=0;i<n;i++)
+    {
+        double  num1=0,num2=0,num3=0;
+        char name[100]={0};
+        double attack;
+        double defence;
+        double organization;
+        scanf(" %s",a[i].name);
+        for(int j=0;j<11;j++)
+        {
+            scanf("%s",name);
+            scanf("%lf",&attack);
+            scanf("%lf",&defence);
+            scanf("%lf",&organization);
+            num1+=attack;
+            num2+=defence;
+            num3+=organization;
+        }
+        num1=(double )num1/11;
+        num2=(double )num2/11;
+        num3=(double )num3/11;
+        a[i].attack=num1;
+        a[i].defence=num2;
+        a[i].organization=num3;
+    }
+    attacksort(a,n);
+    defencesort(a,n);
+    organizationsort(a,n);
+
+    return 0;
+}
