@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <math.h>
+double e=0.00001;
+int n,p;
+int c[25];
+double a,b;
+double function(double x)
+{
+	double sum=0.0;
+	for(int i=0;i<=n;i++)
+	{
+		sum+=c[i]*pow(x,i);
+	}
+	return pow(sum,p);
+}
+double primefunction(double x)
+{
+	double sum=0.0;
+	for(int i=0;i<=n;i++)
+	{
+		sum+=c[i]*pow(x,i+1)/(i+1);
+	}
+	return pow(sum,p);
+}
+double s(double a,double b)
+{
+	if(p==1)
+		return primefunction(b)-primefunction(a);
+	else
+		return (4*function((a+b)/2)+function(a)+function(b))*(b-a)/6;
+}
+double intgreation(double l,double r)
+{
+	double mid=(l+r)/2;
+	if(fabs(s(l,mid)+s(mid,r)-s(l,r))<=15*e)
+		return (s(l,mid)+s(mid,r))*16/15-s(l,r)/15;
+	else 
+	{
+		double e=e/2;
+		return intgreation(l,mid)+intgreation(mid,r);
+	}
+}
+int main(void)
+{
+	scanf("%d%d",&n,&p);
+	for(int i=0;i<=n;i++)
+	{
+		scanf("%d",&c[i]);
+	}
+	scanf("%lf%lf",&a,&b);
+	printf("%lf",intgreation(a,b));
+}
