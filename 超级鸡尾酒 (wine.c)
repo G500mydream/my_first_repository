@@ -1,0 +1,71 @@
+#include <stdio.h>
+int n,l;
+int arr[10005]={0};
+int value[10005]={0};
+int sum=0;
+void sort(int value[],int arr[])
+{
+	for (int i=0; i<n-1; ++i)  
+    {
+    	int buf;
+    	int tmp;
+        for (int j=0; j<n-1-i; ++j)  
+        {
+            if (value[j] < value[j+1])
+            {
+                buf = value[j];
+                value[j] = value[j+1];
+                value[j+1] = buf;
+                tmp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=tmp;
+            }
+        }
+    }
+}
+/*void getresult(int value[],int arr[],int l,int sum)
+{
+	for(int i=0;l>0;i++)
+	{
+		if(l-arr[i]>=0) 
+		{
+			sum+=value[i]*arr[i];
+			l=l-arr[i];
+		}
+		else 
+		{
+			sum+=value[i]*l;
+			l=0;
+		}
+	}
+}*/
+
+int main(void)
+{
+	scanf("%d%d",&n,&l);
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d",&value[i]);
+	}
+	for(int i=0;i<n;i++)
+	{
+		scanf("%d",&arr[i]);
+	}
+	sort(value,arr);
+	
+	for(int i=0;l>0;i++)
+	{
+		if(l-arr[i]>=0) 
+		{
+			sum+=value[i]*arr[i];
+			l=l-arr[i];
+		}
+		else 
+		{
+			sum+=value[i]*l;
+			l=0;
+		}
+	}
+	printf("%d\n",sum);
+	
+}
