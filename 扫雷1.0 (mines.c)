@@ -1,0 +1,63 @@
+#include <stdio.h>
+int n;
+int vector[8][2]={{0,1},{0,-1},{1,0},{-1,0},{1,1},{1,-1},{-1,1},{-1,-1}};
+int main()
+{
+	int count=0;
+	scanf("%d",&n);
+	char new_a[n+2][n+2];
+	char a[n][n];
+	for(int row=0;row<n;row++)
+	{
+		for(int col=0;col<n;col++)
+		{
+			scanf(" %c",&a[row][col]);
+		}
+	}
+	
+	for(int row=0;row<n+2;row++)
+	{
+		for(int col=0;col<n+2;col++)
+		{
+			if(row==0||row==n+1||col==0||col==n+1)
+			{
+				new_a[row][col]='o';
+			}else
+			{
+				new_a[row][col]=a[row-1][col-1];
+			}
+		}
+	}
+	for(int i=1;i<n+1;i++)
+	{
+		for(int j=1;j<n+1;j++)
+		{
+			count=0;
+			if(new_a[i][j]=='*') 
+			{
+				count=0;
+				continue;
+			}
+			else{
+			for(int k=0;k<8;k++)
+			{
+				int new_i=i+vector[k][0];
+				int new_j=j+vector[k][1];
+				if(new_a[new_i][new_j]=='*')
+				{
+					count++;
+				}
+			}
+			new_a[i][j]=count+48;
+			}
+		}
+	}
+	for(int i=1;i<n+1;i++)
+	{
+		for(int j=1;j<n+1;j++)
+		{
+			printf("%c",new_a[i][j]);
+		}
+		printf("\n");
+	}
+}
